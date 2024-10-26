@@ -30,13 +30,16 @@ public class EasyQuestionsTests {
     public void objectsByValue_Demo() {
         // jvm hack for caching small values
         // https://wiki.owasp.org/index.php/Java_gotchas#Immutable_Objects_.2F_Wrapper_Class_Caching
-        Integer first = 1;
-        Integer second = 1;
+        Integer first = 12;
+        Integer second = 12;
 
         Assertions.assertSame(first, second);
+        Assertions.assertTrue(first == second);
+
         Assertions.assertEquals(first, second);
 
         // extended example
+        // Показывает, что значения выходящие из промежутка -128 до 127 уже не кешируются
         first = 1337;
         second = 1337;
         Assertions.assertNotSame(first, second);
@@ -44,7 +47,10 @@ public class EasyQuestionsTests {
 
         // typical question
         Assertions.assertNotSame(new Boolean(false), Boolean.FALSE);
+
         Assertions.assertEquals(false, Boolean.FALSE);
+        Assertions.assertTrue(Boolean.FALSE.equals(false));
+
         Assertions.assertSame(false, Boolean.FALSE);
     }
 
